@@ -1,7 +1,7 @@
 # RGBLightning
 Library with functions to control RGB LED Strips from Arduino.
 
-## functions
+## Functions
 ### WriteColor(int R, int G, int B)
 Sets the given RGB color immediately.
 
