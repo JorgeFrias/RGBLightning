@@ -1,0 +1,3 @@
+RGBLightning    KEYWORD1
+WriteColor  KEYWORD2
+FadeColor   KEYWORD2

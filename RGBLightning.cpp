@@ -13,9 +13,12 @@ RGBLightning::RGBLightning(int pinRed, int pinGreen, int pinBlue)
     _PinGreen = pinGreen;
     _PinBlue = pinBlue;
 
-    _Red	= 0;    		    // Current red component
-    _Green	= 0;			    // Current green component
-    _Blue	= 0;			    // Current blue component
+    _Red	= 0;    		        // Current red component
+    _Green	= 0;			        // Current green component
+    _Blue	= 0;			        // Current blue component
+
+    _fadeStepsPerSecond = 30;	    // Fade transition fps
+
 
     pinMode(_PinRed, OUTPUT);
     pinMode(_PinGreen, OUTPUT);
@@ -24,6 +27,7 @@ RGBLightning::RGBLightning(int pinRed, int pinGreen, int pinBlue)
 
 /**
  * Writes the given color at the LEDs
+ * Private Function, only use with other code witch updates the global variables
  */
 void RGBLightning::WriteColor(int R, int G, int B)
 {
@@ -31,6 +35,17 @@ void RGBLightning::WriteColor(int R, int G, int B)
     analogWrite(_PinRed, 255 - R);
     analogWrite(_PinGreen, 255 - G);
     analogWrite(_PinBlue, 255 - B);
+}
+
+/**
+ * Writes the given color at the LEDs inmediately 
+ */
+void RGBLightning::SetColor(int R, int G, int B)
+{
+    _Red = R;
+    _Green = G;
+    _Blue = B;
+    WriteColor(R, G, B);
 }
 
 /**
@@ -49,8 +64,12 @@ double RGBLightning::FadeStep(int initialColorComp, int endColorComp, int nSteps
  */
 void RGBLightning::FadeColor(int R, int G, int B, int FadeTime)
 {
+    if (FadeTime <= 0 )
+    {
+        SetColor(R, G, B);
+    }
+    
     /* Do not update the global variables until is finished! */
-
     int nSteps;
     int photogramLapse;
 

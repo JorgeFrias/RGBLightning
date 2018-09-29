@@ -13,17 +13,36 @@
 class RGBLightning
 {
   public:
-    /* Writes the given color at the LEDs */
-    void WriteColor(int R, int G, int B);
+    /** Class constructor */
+    RGBLightning(int pinRed, int pinGreen, int pinBlue);
 
-    /* Makes the LEDs fade from the current color to the given one */
+    /**
+     * Writes the given color at the LEDs inmediately 
+     */
+    void SetColor(int R, int G, int B);
+
+    /** Makes the LEDs fade from the current color to the given one */
     void FadeColor(int R, int G, int B, int FadeTime);
 
   private:
-    /* 
-	Calculates the step for each fotogram for a given color component. 
-	Is double because due to rounding the numbers, the error can grow
-    */
+    int _PinRed;
+    int _PinGreen;
+    int _PinBlue;
+
+    int _Red;    		        // Current red component
+    int _Green;			        // Current green component
+    int _Blue;			        // Current blue component
+
+    int _fadeStepsPerSecond;    // Fade transition fps
+
+
+    /** Writes the given color at the LEDs */
+    void WriteColor(int R, int G, int B);
+
+    /** 
+	 * Calculates the step for each fotogram for a given color component. 
+	 * Is double because due to rounding the numbers, the error can grow
+     */
     double FadeStep(int initialColorComp, int endColorComp, int nSteps);
 };
 
