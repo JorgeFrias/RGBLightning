@@ -4,7 +4,7 @@
 */
 
 #include "Arduino.h"
-#include "Math.h"
+#include "math.h"
 #include "RGBLightning.h"
 
 RGBLightning::RGBLightning(int pinRed, int pinGreen, int pinBlue)
@@ -13,16 +13,30 @@ RGBLightning::RGBLightning(int pinRed, int pinGreen, int pinBlue)
     _PinGreen = pinGreen;
     _PinBlue = pinBlue;
 
+    // _Red	= 0;    		            // Current red component
+    // _Green	= 0;			        // Current green component
+    // _Blue	= 0;			        // Current blue component
+
+    // _fadeStepsPerSecond = 30;	    // Fade transition fps
+
+    // pinMode(_PinRed, OUTPUT);
+    // pinMode(_PinGreen, OUTPUT);
+    // pinMode(_PinBlue, OUTPUT);
+}
+
+void RGBLightning::begin()
+{
     _Red	= 0;    		        // Current red component
     _Green	= 0;			        // Current green component
     _Blue	= 0;			        // Current blue component
 
     _fadeStepsPerSecond = 30;	    // Fade transition fps
 
-
     pinMode(_PinRed, OUTPUT);
     pinMode(_PinGreen, OUTPUT);
     pinMode(_PinBlue, OUTPUT);
+
+    analogWriteRange(254);          // Reduce the range to ESP286 boards
 }
 
 /**
@@ -32,9 +46,19 @@ RGBLightning::RGBLightning(int pinRed, int pinGreen, int pinBlue)
 void RGBLightning::WriteColor(int R, int G, int B)
 {
     // Invert: for the strip 0 is full color
-    analogWrite(_PinRed, 255 - R);
-    analogWrite(_PinGreen, 255 - G);
-    analogWrite(_PinBlue, 255 - B);
+    // analogWrite(_PinRed, 255 - R);
+    // analogWrite(_PinGreen, 255 - G);
+    // analogWrite(_PinBlue, 255 - B);
+
+    Serial.println("setting color");
+    Serial.print("_PinRed: ");
+    Serial.println(_PinRed);
+    Serial.print("Value: ");
+    Serial.println(R);
+
+    analogWrite(_PinRed, R);
+    analogWrite(_PinGreen, G);
+    analogWrite(_PinBlue, B);
 }
 
 /**

@@ -8,13 +8,16 @@
 #define RGBLightning_h
 
 #include "Arduino.h"
-#include "Math.h"
+#include "math.h"
 
 class RGBLightning
 {
   public:
     /** Class constructor */
     RGBLightning(int pinRed, int pinGreen, int pinBlue);
+
+    /** To be called in setup() */
+    void begin();
 
     /**
      * Writes the given color at the LEDs inmediately 
@@ -25,9 +28,9 @@ class RGBLightning
     void FadeColor(int R, int G, int B, int FadeTime);
 
   private:
-    int _PinRed;
-    int _PinGreen;
-    int _PinBlue;
+    uint8_t _PinRed;
+    uint8_t _PinGreen;
+    uint8_t _PinBlue;
 
     int _Red;    		        // Current red component
     int _Green;			        // Current green component
