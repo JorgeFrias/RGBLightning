@@ -10,11 +10,13 @@
 #include "Arduino.h"
 #include "math.h"
 
+enum BoardResolution { r255, r1024 };
+
 class RGBLightning
 {
   public:
     /** Class constructor */
-    RGBLightning(int pinRed, int pinGreen, int pinBlue);
+    RGBLightning(int pinRed, int pinGreen, int pinBlue, BoardResolution boardResolution);
 
     /** To be called in setup() */
     void begin();
@@ -27,6 +29,7 @@ class RGBLightning
     /** Makes the LEDs fade from the current color to the given one */
     void FadeColor(int R, int G, int B, int FadeTime);
 
+
   private:
     uint8_t _PinRed;
     uint8_t _PinGreen;
@@ -35,6 +38,8 @@ class RGBLightning
     int _Red;    		        // Current red component
     int _Green;			        // Current green component
     int _Blue;			        // Current blue component
+
+    int _BoardResol;
 
     int _fadeStepsPerSecond;    // Fade transition fps
 
